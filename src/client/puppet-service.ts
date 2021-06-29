@@ -1206,14 +1206,16 @@ export class PuppetService extends Puppet {
   }
 
   override async roomAdd (
-    roomId    : string,
-    contactId : string,
+    roomId      : string,
+    contactId   : string,
+    forceInvite : boolean,
   ): Promise<void> {
     log.verbose('PuppetService', 'roomAdd(%s, %s)', roomId, contactId)
 
     const request = new RoomAddRequest()
     request.setId(roomId)
     request.setContactId(contactId)
+    request.setForceInvite(forceInvite)
 
     await util.promisify(
       this.grpcClient!.roomAdd.bind(this.grpcClient)
